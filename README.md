@@ -1,6 +1,7 @@
 simple telegram bot to upload torrent files and get stats from seedbox.
 
 requirements:
+ - psutil to get system stats (`pip install psutil`)
  - telegram api (`pip install python-telegram-bot`)
  - libtorrent python wrapper (`sudo apt-get install python3-libtorrent`)
  - qbittorrent python api (`pip install qbittorrent-api`)
