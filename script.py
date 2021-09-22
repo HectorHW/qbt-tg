@@ -46,7 +46,7 @@ if __name__ == '__main__':
         sys.exit(2)
 
     import qbittorrentapi as qbt
-    qbt_client = qbt.Client(host='localhost:8080', username=config["qbt_username"], password=config["qbt_password"])
+    qbt_client = qbt.Client(host='localhost:8080', username=config["qbt_username"], password=config["qbt_password"], VERIFY_WEBUI_CERTIFICATE=False)
     
     print(f"qbt version: {qbt_client.app.version}")
 
