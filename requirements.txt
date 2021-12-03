@@ -1,0 +1,4 @@
+psutil
+python-telegram-bot
+qbittorrent-api
+torrent_parser

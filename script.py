@@ -4,9 +4,10 @@ import warnings
 
 import telegram
 from telegram.ext import Updater, Dispatcher, CallbackContext
-
+import torrent_parser as tp
 import json
 import sys
+import config as cfg
 
 def load_config(filename):
     if not os.path.exists(filename):
@@ -186,6 +187,14 @@ if __name__ == '__main__':
                 context.bot.send_message(chat_id=update.effective_chat.id, text=f"mime type did not match, check file")
             return
 
+    def get_torrent_data(file):
+        data = tp.decode(file)
+        name = data['info']['name']
+        pieces = data['info']['pieces']
+        piece_size = data['info']['pieces']
+        size = pieces * piece_size
+        return name, size
+
     def prepare_file(update, context):
         doc_info = context.chat_data['doc_info']
         file_id = doc_info.file_id
@@ -196,10 +205,9 @@ if __name__ == '__main__':
         mock_file = io.BytesIO()
         file_handle.download(out=mock_file)
 
-        import libtorrent as lt
-        info = lt.torrent_info(mock_file.getvalue())
-        size_gb = info.total_size() / 2**30
-        name = info.name()
+        name, size = get_torrent_data(mock_file.getvalue())
+
+        size_gb = size / 2**30
         context.chat_data['tmp_file'] = mock_file
         return f"add {name} with size {size_gb:.1f} Gb?\n(y/yes to accept, _ to cancel)"
 
