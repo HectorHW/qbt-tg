@@ -189,8 +189,8 @@ if __name__ == '__main__':
     def get_torrent_data(file):
         data = tp.decode(file)
         name = data['info']['name']
-        pieces = data['info']['pieces']
-        piece_size = data['info']['pieces']
+        pieces = len(data['info']['pieces'])
+        piece_size = data['info']['piece length']
         size = pieces * piece_size
         return name, size
 
