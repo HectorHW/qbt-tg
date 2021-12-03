@@ -7,7 +7,6 @@ from telegram.ext import Updater, Dispatcher, CallbackContext
 import torrent_parser as tp
 import json
 import sys
-import config as cfg
 
 def load_config(filename):
     if not os.path.exists(filename):
